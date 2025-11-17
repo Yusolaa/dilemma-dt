@@ -15,8 +15,8 @@ class FrameworkAnalyzer:
     
     async def analyze_decision(
         self,
-        choice: str,
         context: str,
+        choice: str,
         decision_history: List[str] = None
     ) -> FrameworkAnalysis:
         """

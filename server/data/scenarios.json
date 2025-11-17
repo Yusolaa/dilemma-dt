@@ -1,0 +1,89 @@
+{
+  "scenarios": [
+    {
+      "id": "leaked_report_001",
+      "title": "The Leaked Report",
+      "description": "Navigate workplace ethics when confidential information falls into your hands",
+      "category": "business",
+      "difficulty": "intermediate",
+      "estimated_time": 8,
+      "decision_points": [
+        {
+          "step": 1,
+          "context": "You're a mid-level manager. Your colleague Sarah accidentally left a confidential performance review document open on the printer. You see it contains plans to eliminate 30% of another department—information not yet public. Your friend Tom works in that department and just bought a house.",
+          "prompt": "What do you do?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Tell Tom immediately so he can prepare"
+            },
+            {
+              "id": "B",
+              "text": "Return the document, say nothing"
+            },
+            {
+              "id": "C",
+              "text": "Report the leak to HR"
+            },
+            {
+              "id": "D",
+              "text": "Tell your boss you saw it accidentally"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "context": "Two days have passed since your decision.",
+          "prompt": "HR has started investigating the leak. What's your next move?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Come forward with what you know"
+            },
+            {
+              "id": "B",
+              "text": "Stay quiet and observe"
+            },
+            {
+              "id": "C",
+              "text": "Talk to Sarah privately"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "context": "The investigation intensifies. Multiple people are being questioned.",
+          "prompt": "You're called in for questioning. How do you respond?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Tell the complete truth"
+            },
+            {
+              "id": "B",
+              "text": "Admit seeing the document but nothing more"
+            },
+            {
+              "id": "C",
+              "text": "Claim you never saw anything"
+            }
+          ]
+        }
+      ],
+      "consequence_rules": [
+        {
+          "trigger_choice": "A",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "Tom's reaction to being warned has created ripple effects in the department"
+        },
+        {
+          "trigger_choice": "B",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "Your silence has had unexpected consequences"
+        }
+      ]
+    }
+  ]
+}

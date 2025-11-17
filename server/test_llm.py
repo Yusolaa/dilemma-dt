@@ -3,8 +3,8 @@ from services.framework_analyzer import framework_analyzer
 
 async def test():
     analysis = await framework_analyzer.analyze_decision(
-        choice="Tell Elon about the layoffs immediately",
-        context="You found a confidential document about upcoming layoffs. Your friend Tom works in the affected department.",
+        context="You found a confidential document about upcoming layoffs. Your friend Elon works in the affected department.",
+        choice="Do not tell Elon about the layoffs",
         decision_history=[]
     )
     

@@ -1,21 +1,34 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api import scenarios, decisions, reflections
+from api import scenarios, decisions
 
-app = FastAPI(title='Dilemma Decision Tree API')
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['http://localhost:3000'],
-    allow_credentials=True,
-    allow_methods=['*'],
-    allow_headers=['*'],
+app = FastAPI(
+    title="Dilemma Decision Tree API",
+    description="Ethical decision-making analysis API",
+    version="1.0.0"
 )
 
-app.include_router(scenarios.router, prefix='/scenarios', tags=['scenarios'])
-app.include_router(decisions.router, prefix='/decisions', tags=['decisions'])
-app.include_router(reflections.router, prefix='/reflections', tags=['reflections'])
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.get('/')
-async def root():
-    return {'message': 'Welcome to the Dilemma Decision Tree API'}
+# Routes
+app.include_router(scenarios.router, prefix="/api/scenarios", tags=["scenarios"])
+app.include_router(decisions.router, prefix="/api/decisions", tags=["decisions"])
+
+@app.get("/")
+def read_root():
+    return {
+        "message": "Dilemma Decision Tree API",
+        "docs": "/docs",
+        "version": "1.0.0"
+    }
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
