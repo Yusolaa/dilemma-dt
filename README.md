@@ -4,22 +4,22 @@ An interactive ethical decision-making tool that analyzes choices through multip
 
 ## Tech Stack
 
-**Backend:** Python, FastAPI, Groq (Llama 3.3 70B)  
-**Frontend:** Next.js, TypeScript, TailwindCSS  
+**Server:** Python, FastAPI, Groq (Llama 3.3 70B)  
+**Client:** Next.js, TypeScript, TailwindCSS  
 **Database:** PostgreSQL
 
 ## Quick Start
 
-### Backend Setup
+### Server Setup
 
 ```bash
-cd backend
+cd server
 python -m venv .venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source .venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # Configure environment
-cp .env.local .env
+cp .env
 # Add your GROQ_API_KEY to .env
 
 # Run server
@@ -28,7 +28,7 @@ uvicorn app.main:app --reload
 
 API runs at `http://localhost:8000`
 
-### Frontend Setup
+### Client Setup
 
 ```bash
 cd client
@@ -63,14 +63,14 @@ App runs at `http://localhost:3000`
 
 ## Environment Variables
 
-**Backend (.env)**
+**Server (.env)**
 
 ```
 GROQ_API_KEY=your_key_here
 DATABASE_URL=postgresql://user:pass@localhost:5432/dilemma_db
 ```
 
-**Frontend (.env.local)**
+**Client (.env.local)**
 
 ```
 NEXT_PUBLIC_API_URL=http://localhost:8000
