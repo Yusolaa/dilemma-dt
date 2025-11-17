@@ -1,3 +1,4 @@
+# Ethical framework analysis
 from services.llm_service import llm_service
 from models.analysis import FrameworkAnalysis
 from typing import List
