@@ -10,7 +10,7 @@
       "decision_points": [
         {
           "step": 1,
-          "context": "You're a mid-level manager. Your colleague Sarah accidentally left a confidential performance review document open on the printer. You see it contains plans to eliminate 30% of another department—information not yet public. Your friend Tom works in that department and just bought a house.",
+          "context": "You're a mid-level manager. Your colleague Sarah accidentally left a confidential performance review document open on the printer. You see it contains plans to eliminate 30% of another department\u2014information not yet public. Your friend Tom works in that department and just bought a house.",
           "prompt": "What do you do?",
           "choices": [
             {
@@ -84,6 +84,87 @@
           "consequence_template": "Your silence has had unexpected consequences"
         }
       ]
+    },
+    {
+      "id": "gen_b6f8dd223f8b",
+      "title": "Security Vulnerability",
+      "description": "Discovering a security flaw in company product",
+      "category": "business",
+      "difficulty": "intermediate",
+      "decision_points": [
+        {
+          "step": 1,
+          "context": "You are a software engineer at a company that specializes in developing financial management tools. While reviewing the code for your company's flagship product, you discover a significant security vulnerability that could potentially expose sensitive customer data. You are not sure if anyone else in the company is aware of the issue. Your manager is busy with a critical project deadline and has not been available to discuss ongoing development issues.",
+          "prompt": "What do you do about the security vulnerability?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Inform your manager immediately, despite the project deadline"
+            },
+            {
+              "id": "B",
+              "text": "Keep working on the current project and address the vulnerability later"
+            },
+            {
+              "id": "C",
+              "text": "Discreetly inform a colleague who might be able to help you assess the issue"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "context": "After deciding on a course of action regarding the security vulnerability, you are faced with the challenge of how to proceed with your current project tasks. The project deadline is looming, and any significant changes or distractions could impact the timely completion of the project. Your team is counting on you to deliver your part of the project on time.",
+          "prompt": "How do you manage your project tasks in light of the vulnerability?",
+          "choices": [
+            {
+              "id": "D",
+              "text": "Focus on completing the current project tasks as scheduled"
+            },
+            {
+              "id": "E",
+              "text": "Adjust your tasks to prioritize assessing and potentially fixing the vulnerability"
+            },
+            {
+              "id": "F",
+              "text": "Discuss potential project deadline adjustments with your team and manager"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "context": "As the situation with the security vulnerability and the project deadline evolves, you need to consider the broader implications of your actions. This includes the potential impact on customer trust, company reputation, and your own career within the company. You also have to think about how your choices might influence future decisions and policies within the organization.",
+          "prompt": "What is your long-term strategy for handling the vulnerability and its aftermath?",
+          "choices": [
+            {
+              "id": "G",
+              "text": "Push for a company-wide review of security protocols and procedures"
+            },
+            {
+              "id": "H",
+              "text": "Focus on ensuring the vulnerability is fixed and documented internally"
+            },
+            {
+              "id": "I",
+              "text": "Consider external disclosure or reporting the vulnerability if not adequately addressed internally"
+            }
+          ]
+        }
+      ],
+      "consequence_rules": [
+        {
+          "trigger_choice": "A",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "Your immediate report to your manager led to an emergency meeting, resulting in a swift patch release. However, the rushed process introduced minor bugs, affecting some users."
+        },
+        {
+          "trigger_choice": "C",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "Your discreet approach initially avoided project delays, but the vulnerability was not fully addressed, leading to internal debates about transparency and responsibility."
+        }
+      ],
+      "estimated_time": 8
     }
   ]
 }

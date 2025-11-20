@@ -5,7 +5,6 @@ from typing import List
 
 class FrameworkAnalyzer:
     """Analyzes decisions through multiple ethical frameworks"""
-    
     FRAMEWORKS = [
         "Utilitarian",
         "Deontological", 

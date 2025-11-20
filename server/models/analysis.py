@@ -3,7 +3,6 @@ from pydantic import BaseModel, Field
 
 class FrameworkAnalysis(BaseModel):
     """Response model for ethical framework analysis"""
-    
     utilitarian: str = Field(
         description="Analysis from utilitarian perspective (consequences, overall welfare)"
     )

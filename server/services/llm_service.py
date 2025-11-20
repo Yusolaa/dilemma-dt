@@ -1,7 +1,7 @@
 # # Groq/LLM integration
 from groq import Groq
-from typing import Optional
 import os
+from typing import Optional
 from dotenv import load_dotenv
 
 load_dotenv()

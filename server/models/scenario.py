@@ -1,7 +1,7 @@
 # Scenario, DecisionPoint
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
-from enum import Enum
+# from enum import Enum
 
 class ChoiceOption(BaseModel):
     """Single choice option at a decision point"""
