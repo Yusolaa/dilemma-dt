@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { generateScenario } from '@/lib/api';
+import NeuralBackground from '@/components/neural-background';
 
 export default function GeneratePage() {
   const router = useRouter();
@@ -41,126 +42,254 @@ export default function GeneratePage() {
   };
 
   return (
-    <main className='min-h-screen bg-linear-to-br from-slate-50 to-slate-100'>
-      {/* Header */}
-      <div className='bg-white shadow-sm border-b'>
-        <div className='max-w-3xl mx-auto px-8 py-6'>
-          <button
-            onClick={() => router.push('/')}
-            className='text-purple-600 hover:text-purple-700 mb-2 flex items-center gap-2'
-          >
-            ← Back
-          </button>
-          <h1 className='text-3xl font-bold text-slate-900'>
-            🤖 Generate Scenario with AI
-          </h1>
-          <p className='text-slate-600 mt-2'>
-            Describe an ethical dilemma and let AI create a complete scenario
-          </p>
-        </div>
-      </div>
+    <main className='min-h-screen bg-black text-white relative overflow-hidden'>
+      <NeuralBackground />
 
-      {/* Form */}
-      <div className='max-w-3xl mx-auto px-8 py-12'>
-        <div className='bg-white rounded-xl p-8 shadow-sm border space-y-6'>
-          {/* Topic */}
-          <div>
-            <label className='block text-sm font-medium text-slate-700 mb-2'>
-              Topic / Ethical Dilemma *
-            </label>
-            <textarea
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              placeholder="E.g., 'A software engineer discovers a security vulnerability that could expose user data'"
-              className='w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent'
-              rows={4}
-            />
-          </div>
-
-          {/* Category */}
-          <div>
-            <label className='block text-sm font-medium text-slate-700 mb-2'>
-              Category
-            </label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className='w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500'
+      <div className='relative z-10'>
+        {/* Compact Header */}
+        <header className='border-b border-cyan-500/10 backdrop-blur-sm bg-black/50'>
+          <div className='max-w-4xl mx-auto px-8 py-4 flex items-center justify-between'>
+            <button
+              onClick={() => router.push('/')}
+              className='flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors text-sm'
             >
-              <option value='business'>Business</option>
-              <option value='medical'>Medical</option>
-              <option value='personal'>Personal</option>
-              <option value='civic'>Civic</option>
-            </select>
-          </div>
+              <svg
+                className='w-4 h-4'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M10 19l-7-7m0 0l7-7m-7 7h18'
+                />
+              </svg>
+              Back
+            </button>
 
-          {/* Difficulty */}
-          <div>
-            <label className='block text-sm font-medium text-slate-700 mb-2'>
-              Difficulty Level
-            </label>
-            <div className='grid grid-cols-3 gap-3'>
-              {['beginner', 'intermediate', 'advanced'].map((level) => (
-                <button
-                  key={level}
-                  onClick={() => setDifficulty(level)}
-                  className={`px-4 py-3 rounded-lg border-2 font-medium capitalize transition-colors ${
-                    difficulty === level
-                      ? 'border-purple-600 bg-purple-50 text-purple-700'
-                      : 'border-slate-200 hover:border-slate-300'
-                  }`}
-                >
-                  {level}
-                </button>
-              ))}
+            <h1 className='text-sm font-light text-gray-400 tracking-wide'>
+              Neural Pathway Generator
+            </h1>
+
+            <div className='w-16'></div>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div className='max-w-3xl mx-auto px-8 py-16'>
+          {/* Central Node Visualization */}
+          <div className='flex justify-center mb-12'>
+            <div className='relative'>
+              {/* Pulsing rings */}
+              <div className='absolute inset-0 flex items-center justify-center'>
+                <div className='w-32 h-32 rounded-full border border-cyan-500/20 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]'></div>
+                <div className='absolute w-24 h-24 rounded-full border border-purple-500/20 animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]'></div>
+              </div>
+
+              {/* Core node */}
+              <div
+                className='relative w-20 h-20 rounded-full bg-linear
+              -to-br from-cyan-500 to-purple-500 flex items-center justify-center'
+              >
+                <div className='w-16 h-16 rounded-full bg-black flex items-center justify-center'>
+                  <svg
+                    className='w-8 h-8 text-cyan-400'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={1.5}
+                      d='M12 4v16m8-8H4'
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Number of Steps */}
-          <div>
-            <label className='block text-sm font-medium text-slate-700 mb-2'>
-              Decision Points: {numSteps}
-            </label>
-            <input
-              type='range'
-              min='2'
-              max='5'
-              value={numSteps}
-              onChange={(e) => setNumSteps(parseInt(e.target.value))}
-              className='w-full'
-            />
-            <div className='flex justify-between text-xs text-slate-500 mt-1'>
-              <span>2 (Quick)</span>
-              <span>5 (Complex)</span>
+          {/* Form Container */}
+          <div className='bg-black/50 backdrop-blur-sm border border-cyan-500/20 rounded-3xl p-8 space-y-8'>
+            {/* Topic Input */}
+            <div>
+              <label className='block text-xs text-gray-500 uppercase tracking-wider mb-3'>
+                Ethical Dilemma
+              </label>
+              <textarea
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                placeholder='Describe a moral conflict or ethical decision scenario...'
+                className='w-full px-4 py-3 bg-black/50 border border-cyan-500/30 rounded-xl text-gray-300 placeholder-gray-700 focus:border-cyan-500/60 focus:outline-none transition-colors resize-none'
+                rows={4}
+              />
             </div>
-          </div>
 
-          {/* Error */}
-          {error && (
-            <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg'>
-              {error}
+            {/* Category Selection */}
+            <div>
+              <label className='block text-xs text-gray-500 uppercase tracking-wider mb-3'>
+                Domain
+              </label>
+              <div className='grid grid-cols-2 sm:grid-cols-4 gap-3'>
+                {[
+                  { value: 'business', label: 'Business', icon: '💼' },
+                  { value: 'medical', label: 'Medical', icon: '⚕️' },
+                  { value: 'personal', label: 'Personal', icon: '👤' },
+                  { value: 'civic', label: 'Civic', icon: '🏛️' },
+                ].map((cat) => (
+                  <button
+                    key={cat.value}
+                    onClick={() => setCategory(cat.value)}
+                    className={`p-4 rounded-xl border transition-all ${
+                      category === cat.value
+                        ? 'border-cyan-500 bg-cyan-500/10'
+                        : 'border-gray-800 hover:border-gray-700'
+                    }`}
+                  >
+                    <div className='text-2xl mb-2'>{cat.icon}</div>
+                    <div className='text-xs text-gray-400'>{cat.label}</div>
+                  </button>
+                ))}
+              </div>
             </div>
-          )}
 
-          {/* Submit */}
-          <button
-            onClick={handleGenerate}
-            disabled={loading}
-            className='w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-400 text-white py-4 rounded-lg font-medium text-lg transition-colors'
-          >
-            {loading ? (
-              <span className='flex items-center justify-center gap-2'>
-                <div className='animate-spin rounded-full h-5 w-5 border-b-2 border-white'></div>
-                Generating scenario...
-              </span>
-            ) : (
-              '✨ Generate Scenario'
+            {/* Difficulty Level */}
+            <div>
+              <label className='block text-xs text-gray-500 uppercase tracking-wider mb-3'>
+                Complexity
+              </label>
+              <div className='grid grid-cols-3 gap-3'>
+                {[
+                  { value: 'beginner', label: 'Simple', dots: 1 },
+                  { value: 'intermediate', label: 'Moderate', dots: 2 },
+                  { value: 'advanced', label: 'Complex', dots: 3 },
+                ].map((level) => (
+                  <button
+                    key={level.value}
+                    onClick={() => setDifficulty(level.value)}
+                    className={`py-3 px-4 rounded-xl border transition-all ${
+                      difficulty === level.value
+                        ? 'border-purple-500 bg-purple-500/10'
+                        : 'border-gray-800 hover:border-gray-700'
+                    }`}
+                  >
+                    <div className='flex justify-center gap-1 mb-2'>
+                      {[...Array(level.dots)].map((_, i) => (
+                        <div
+                          key={i}
+                          className={`w-1.5 h-1.5 rounded-full ${
+                            difficulty === level.value
+                              ? 'bg-purple-400'
+                              : 'bg-gray-700'
+                          }`}
+                        ></div>
+                      ))}
+                    </div>
+                    <div className='text-xs text-gray-400'>{level.label}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Decision Points Slider */}
+            <div>
+              <div className='flex justify-between items-center mb-3'>
+                <label className='text-xs text-gray-500 uppercase tracking-wider'>
+                  Decision Nodes
+                </label>
+                <span className='text-sm text-cyan-400 font-light'>
+                  {numSteps}
+                </span>
+              </div>
+
+              {/* Custom slider */}
+              <div className='relative'>
+                <input
+                  type='range'
+                  min='2'
+                  max='5'
+                  value={numSteps}
+                  onChange={(e) => setNumSteps(parseInt(e.target.value))}
+                  className='w-full h-1 bg-gray-800 rounded-full appearance-none cursor-pointer
+                    [&::-webkit-slider-thumb]:appearance-none
+                    [&::-webkit-slider-thumb]:w-4
+                    [&::-webkit-slider-thumb]:h-4
+                    [&::-webkit-slider-thumb]:rounded-full
+                    [&::-webkit-slider-thumb]:bg-cyan-500
+                    [&::-webkit-slider-thumb]:cursor-pointer
+                    [&::-moz-range-thumb]:w-4
+                    [&::-moz-range-thumb]:h-4
+                    [&::-moz-range-thumb]:rounded-full
+                    [&::-moz-range-thumb]:bg-cyan-500
+                    [&::-moz-range-thumb]:border-0
+                    [&::-moz-range-thumb]:cursor-pointer'
+                />
+                <div className='flex justify-between mt-2'>
+                  {[2, 3, 4, 5].map((n) => (
+                    <div
+                      key={n}
+                      className={`w-1 h-1 rounded-full ${
+                        n <= numSteps ? 'bg-cyan-500' : 'bg-gray-800'
+                      }`}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+
+              <div className='flex justify-between text-xs text-gray-700 mt-2'>
+                <span>Quick</span>
+                <span>Detailed</span>
+              </div>
+            </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className='p-4 bg-red-500/10 border border-red-500/30 rounded-xl'>
+                <p className='text-sm text-red-400'>{error}</p>
+              </div>
             )}
-          </button>
 
-          <p className='text-xs text-slate-500 text-center'>
-            Generation typically takes 10-15 seconds
-          </p>
+            {/* Generate Button */}
+            <button
+              onClick={handleGenerate}
+              disabled={loading}
+              className='w-full py-4 bg-linear-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 disabled:from-gray-700 disabled:to-gray-800 rounded-xl font-light transition-all disabled:cursor-not-allowed group'
+            >
+              {loading ? (
+                <span className='flex items-center justify-center gap-3'>
+                  <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                  <span className='text-sm tracking-wide'>
+                    Generating Neural Pathway...
+                  </span>
+                </span>
+              ) : (
+                <span className='flex items-center justify-center gap-2 text-sm tracking-wide'>
+                  <svg
+                    className='w-5 h-5 group-hover:rotate-90 transition-transform duration-500'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M13 10V3L4 14h7v7l9-11h-7z'
+                    />
+                  </svg>
+                  Initialize Pathway
+                </span>
+              )}
+            </button>
+
+            {/* Info Text */}
+            <p className='text-xs text-center text-gray-600 font-light'>
+              AI generation takes 10-15 seconds • Powered by Llama 3.3 70B
+            </p>
+          </div>
         </div>
       </div>
     </main>

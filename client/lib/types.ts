@@ -31,6 +31,8 @@ export interface DecisionResponse {
   session_id: string;
   analysis: FrameworkAnalysis;
   consequence: string | null;
+  consequence_trigger_step: number | null; // NEW
+  consequence_trigger_choice: string | null; // NEW
   next_step: number | null;
   is_final: boolean;
 }

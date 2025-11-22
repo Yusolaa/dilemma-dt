@@ -165,6 +165,288 @@
         }
       ],
       "estimated_time": 8
+    },
+    {
+      "id": "gen_cae65287e10b",
+      "title": "Desperate Times",
+      "description": "Considering a drastic act to solve financial woes",
+      "category": "personal",
+      "difficulty": "advanced",
+      "decision_points": [
+        {
+          "step": 1,
+          "context": "You've been struggling to make ends meet for months, with bills piling up and no savings in sight. You've applied to numerous jobs but haven't received any offers. One day, an acquaintance approaches you with an offer to participate in a bank robbery, promising a significant cut of the loot. You're torn between your desperation for money and the moral implications of such a crime.",
+          "prompt": "What do you do about the bank robbery offer?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Accept the offer, hoping to solve your financial issues"
+            },
+            {
+              "id": "B",
+              "text": "Decline, citing moral and legal concerns"
+            },
+            {
+              "id": "C",
+              "text": "Ask for more information before making a decision"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "context": "You've decided to consider the offer further or have declined it. However, your financial situation hasn't changed, and the pressure to find a solution is mounting. You start thinking about other, possibly less risky, illegal activities that could help you out of your financial bind.",
+          "prompt": "What alternative actions do you consider?",
+          "choices": [
+            {
+              "id": "D",
+              "text": "Look into less severe illegal activities, like selling counterfeit goods"
+            },
+            {
+              "id": "E",
+              "text": "Consider gambling as a way to make quick money"
+            },
+            {
+              "id": "F",
+              "text": "Reach out to friends and family for help"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "context": "Your exploration of alternative solutions has led you to realize the potential consequences of engaging in any illegal activity. You start to think about the long-term effects on your life and relationships. Meanwhile, you receive a call from the acquaintance, inquiring about your decision regarding the bank robbery.",
+          "prompt": "How do you respond to the acquaintance?",
+          "choices": [
+            {
+              "id": "G",
+              "text": "Tell them you're still considering it, to keep options open"
+            },
+            {
+              "id": "H",
+              "text": "Firmly decline, explaining your change of heart"
+            },
+            {
+              "id": "I",
+              "text": "Ask if there are other, less risky jobs available"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "context": "You've made your decision about the bank robbery and potentially other illegal activities. However, your financial situation remains dire, and you're starting to feel the strain on your mental health and relationships. You begin to explore legal but unconventional ways to make money quickly.",
+          "prompt": "What unconventional legal methods do you explore?",
+          "choices": [
+            {
+              "id": "J",
+              "text": "Participate in medical trials for pay"
+            },
+            {
+              "id": "K",
+              "text": "Sell personal items of value"
+            },
+            {
+              "id": "L",
+              "text": "Offer services on freelance platforms"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "context": "You've started exploring legal avenues for income and are beginning to see a glimmer of hope. However, the experience has left you questioning your moral boundaries and the decisions you've made. You wonder about the long-term impact of your choices on your personal growth and relationships.",
+          "prompt": "How do you reflect on your journey and the decisions you've made?",
+          "choices": [
+            {
+              "id": "M",
+              "text": "Focus on the lessons learned, aiming for personal growth"
+            },
+            {
+              "id": "N",
+              "text": "Regret the consideration of illegal activities, feeling relieved it's over"
+            },
+            {
+              "id": "O",
+              "text": "Realize the experience has hardened you, making you more cynical"
+            }
+          ]
+        }
+      ],
+      "consequence_rules": [
+        {
+          "trigger_choice": "A",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "You start noticing suspicious activity around your neighborhood, possibly related to the planned robbery, making you feel uneasy about your initial decision."
+        },
+        {
+          "trigger_choice": "D",
+          "trigger_step": 2,
+          "appears_at_step": 4,
+          "consequence_template": "You receive a warning from law enforcement about the counterfeit goods operation you were considering, making you realize how close you were to getting caught."
+        },
+        {
+          "trigger_choice": "G",
+          "trigger_step": 3,
+          "appears_at_step": 5,
+          "consequence_template": "The acquaintance reaches out again, this time with a more urgent tone, implying that your indecision has put you and others at risk, leaving you to wonder about the repercussions of your hesitation."
+        },
+        {
+          "trigger_choice": "J",
+          "trigger_step": 4,
+          "appears_at_step": 5,
+          "consequence_template": "You experience unexpected side effects from the medical trial, making you question the morality of prioritizing financial gain over health and safety."
+        }
+      ],
+      "estimated_time": 8
+    },
+    {
+      "id": "gen_9955086b17de",
+      "title": "To Bear Arms",
+      "description": "Consider the moral implications of gun ownership",
+      "category": "personal",
+      "difficulty": "advanced",
+      "decision_points": [
+        {
+          "step": 1,
+          "context": "You've recently moved to a new state with lax gun laws and are considering purchasing a firearm for personal protection. Your family has a history of violence, and you're concerned about your safety. However, you're also aware of the potential risks and moral implications of gun ownership.",
+          "prompt": "What do you do about the possibility of buying a gun?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Research local gun laws and safety measures"
+            },
+            {
+              "id": "B",
+              "text": "Talk to friends and family about their experiences with guns"
+            },
+            {
+              "id": "C",
+              "text": "Visit a local gun range to learn more about firearms"
+            },
+            {
+              "id": "D",
+              "text": "Decide against buying a gun due to moral objections"
+            }
+          ]
+        },
+        {
+          "step": 2,
+          "context": "After considering your options, you've decided to take a closer look at the practical aspects of gun ownership. You're weighing the potential benefits against the potential risks and responsibilities.",
+          "prompt": "How do you approach the practical aspects of gun ownership?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Take a firearms safety course to learn more"
+            },
+            {
+              "id": "B",
+              "text": "Look into local storage and security options for guns"
+            },
+            {
+              "id": "C",
+              "text": "Consider the financial costs of owning a gun"
+            },
+            {
+              "id": "D",
+              "text": "Think about how owning a gun might affect your relationships"
+            }
+          ]
+        },
+        {
+          "step": 3,
+          "context": "You've been learning more about guns and their implications, and you're starting to feel more informed. However, you're also becoming more aware of the complexities and potential pitfalls of gun ownership.",
+          "prompt": "What do you do with your newfound knowledge?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Start looking into specific types of guns for purchase"
+            },
+            {
+              "id": "B",
+              "text": "Seek out diverse perspectives on gun ownership"
+            },
+            {
+              "id": "C",
+              "text": "Consider alternative self-defense methods"
+            },
+            {
+              "id": "D",
+              "text": "Put your decision on hold to think more about it"
+            }
+          ]
+        },
+        {
+          "step": 4,
+          "context": "As you continue to weigh your options, you're faced with the reality of actually purchasing a gun. You're thinking about the potential consequences of your actions and how they might affect those around you.",
+          "prompt": "What do you do when faced with the decision to buy a gun?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Go to a gun store and purchase a firearm"
+            },
+            {
+              "id": "B",
+              "text": "Decide to wait and see how you feel in a few months"
+            },
+            {
+              "id": "C",
+              "text": "Choose not to buy a gun, but consider other self-defense options"
+            },
+            {
+              "id": "D",
+              "text": "Talk to a therapist about your feelings on gun ownership"
+            }
+          ]
+        },
+        {
+          "step": 5,
+          "context": "You've made a decision about buying a gun, and now you're dealing with the aftermath. You're thinking about how your choice might impact your life and the lives of those around you.",
+          "prompt": "What do you do after making your decision?",
+          "choices": [
+            {
+              "id": "A",
+              "text": "Follow through with your decision and move forward"
+            },
+            {
+              "id": "B",
+              "text": "Reconsider your choice and think about changing your mind"
+            },
+            {
+              "id": "C",
+              "text": "Talk to friends and family about your decision"
+            },
+            {
+              "id": "D",
+              "text": "Reflect on what you've learned and how you've grown"
+            }
+          ]
+        }
+      ],
+      "consequence_rules": [
+        {
+          "trigger_choice": "A",
+          "trigger_step": 1,
+          "appears_at_step": 3,
+          "consequence_template": "Your research led to a deeper understanding of gun laws, but you're now more aware of the potential risks and responsibilities."
+        },
+        {
+          "trigger_choice": "D",
+          "trigger_step": 2,
+          "appears_at_step": 4,
+          "consequence_template": "Your decision to think about relationships has made you more empathetic, but you're struggling to reconcile your feelings with the potential consequences of gun ownership."
+        },
+        {
+          "trigger_choice": "B",
+          "trigger_step": 3,
+          "appears_at_step": 5,
+          "consequence_template": "Seeking out diverse perspectives has broadened your understanding, but you're now faced with the challenge of reconciling conflicting viewpoints and making a decision that aligns with your values."
+        },
+        {
+          "trigger_choice": "C",
+          "trigger_step": 4,
+          "appears_at_step": 5,
+          "consequence_template": "Choosing not to buy a gun has led to a sense of relief, but you're also aware that you may need to find alternative methods for self-defense and consider the potential consequences of that choice."
+        }
+      ],
+      "estimated_time": 8
     }
   ]
 }

@@ -1,4 +1,3 @@
-# POST /analyze-decision
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
@@ -25,13 +24,15 @@ class DecisionSubmitResponse(BaseModel):
     session_id: str
     analysis: FrameworkAnalysis
     consequence: Optional[str] = None
+    consequence_trigger_step: Optional[int] = None  # NEW: Which step triggered this
+    consequence_trigger_choice: Optional[str] = None  # NEW: What choice triggered this
     next_step: Optional[int] = None
     is_final: bool
 
 @router.post("/submit", response_model=DecisionSubmitResponse)
 async def submit_decision(request: DecisionSubmitRequest):
     """
-    Submit a decision and get analysis + consequences
+    Submit a decision and get analysis + consequences with causal chain info
     """
     
     # Get or create session
@@ -76,6 +77,9 @@ async def submit_decision(request: DecisionSubmitRequest):
     
     # Check for triggered consequences
     consequence = None
+    trigger_step = None
+    trigger_choice = None
+    
     triggered_rule = consequence_generator.check_consequence_triggers(
         history=session,
         current_step=request.step,
@@ -88,6 +92,19 @@ async def submit_decision(request: DecisionSubmitRequest):
             history=session,
             context=scenario.description
         )
+        
+        # Store trigger information for causal chain visualization
+        trigger_step = triggered_rule.trigger_step
+        
+        # Find the actual choice text that triggered this consequence
+        for choice in session.choices_made:
+            if choice['step'] == trigger_step and choice['choice_id'] == triggered_rule.trigger_choice:
+                trigger_choice = choice['choice_text']
+                break
+        
+        # Fallback if not found (shouldn't happen, but safety)
+        if not trigger_choice:
+            trigger_choice = f"Choice {triggered_rule.trigger_choice} at step {trigger_step}"
     
     # Determine next step
     is_final = scenario_engine.is_final_step(request.scenario_id, request.step)
@@ -97,6 +114,8 @@ async def submit_decision(request: DecisionSubmitRequest):
         session_id=session_id,
         analysis=analysis,
         consequence=consequence,
+        consequence_trigger_step=trigger_step,  # NEW
+        consequence_trigger_choice=trigger_choice,  # NEW
         next_step=next_step,
         is_final=is_final
     )
@@ -108,3 +127,12 @@ async def get_session(session_id: str):
         raise HTTPException(status_code=404, detail="Session not found")
     
     return sessions[session_id]
+
+@router.delete("/session/{session_id}")
+async def delete_session(session_id: str):
+    """Clear session (for restart functionality)"""
+    if session_id in sessions:
+        del sessions[session_id]
+        return {"message": "Session cleared"}
+    
+    raise HTTPException(status_code=404, detail="Session not found")

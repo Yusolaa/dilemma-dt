@@ -1,83 +1,135 @@
 import Link from 'next/link';
 import { fetchScenarios } from '@/lib/api';
+import NeuralBackground from '@/components/neural-background';
+import ScenarioNode from '@/components/scenario-node';
 
 export default async function Home() {
   const scenarios = await fetchScenarios();
 
   return (
-    <main className='min-h-screen bg-linear-to-br from-slate-50 to-slate-100'>
-      {/* Header */}
-      <div className='bg-white shadow-sm border-b'>
-        <div className='max-w-6xl mx-auto px-8 py-6'>
-          <h1 className='text-4xl font-bold text-slate-900'>
-            Dilemma Decision Tree
-          </h1>
-          <p className='text-slate-600 mt-2'>
-            Navigate complex ethical scenarios. Every choice matters.
-          </p>
-        </div>
-      </div>
+    <main className='min-h-screen bg-black text-white relative overflow-hidden'>
+      {/* Animated Neural Network Background */}
+      <NeuralBackground />
 
       {/* Content */}
-      <div className='max-w-6xl mx-auto px-8 py-12'>
-        {/* Action Bar */}
-        <div className='flex justify-between items-center mb-8'>
-          <h2 className='text-2xl font-semibold text-slate-800'>
-            Available Scenarios
-          </h2>
+      <div className='relative z-10 px-8 py-12'>
+        {/* Compact Header */}
+        <header className='max-w-7xl mx-auto mb-16 flex items-center justify-between'>
+          {/* Logo/Title - Left */}
+          <div className='flex items-center gap-3'>
+            <div className='w-6 h-6 rounded-full bg-linear-to-r from-cyan-500 to-purple-500'></div>
+            <h1 className='text-xl font-extralight tracking-widest text-gray-300'>
+              DILEMMA TREE
+            </h1>
+          </div>
+
+          {/* Generate Button - Right */}
           <Link
             href='/generate'
-            className='bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-colors'
+            className='px-5 py-2 border border-cyan-500/30 rounded-full text-sm font-light hover:border-cyan-500/60 hover:bg-cyan-500/5 transition-all'
           >
-            🤖 Generate New Scenario
+            + New Pathway
           </Link>
-        </div>
+        </header>
 
-        {/* Scenarios Grid */}
-        {scenarios.length === 0 ? (
-          <div className='text-center py-16'>
-            <p className='text-slate-500 text-lg'>No scenarios available.</p>
-            <Link
-              href='/generate'
-              className='text-purple-600 hover:underline mt-2 inline-block'
-            >
-              Generate your first scenario →
-            </Link>
+        {/* Main Content Area */}
+        <div className='max-w-7xl mx-auto'>
+          {/* Subtitle - Minimal */}
+          <div className='text-center mb-12'>
+            <p className='text-sm text-gray-500 font-light tracking-wide'>
+              {scenarios.length} Active Neural Pathways
+            </p>
           </div>
-        ) : (
-          <div className='grid gap-6 md:grid-cols-2'>
-            {scenarios.map((scenario) => (
+
+          {scenarios.length === 0 ? (
+            /* Empty State - Centered */
+            <div className='flex flex-col items-center justify-center min-h-[60vh]'>
+              <div className='w-20 h-20 mb-6 rounded-full border border-dashed border-cyan-500/20 flex items-center justify-center'>
+                <div className='w-3 h-3 rounded-full bg-cyan-500/50'></div>
+              </div>
+              <p className='text-gray-600 text-sm mb-6 font-light'>
+                No pathways initialized
+              </p>
               <Link
-                key={scenario.id}
-                href={`/scenario/${scenario.id}`}
-                className='bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-slate-200 hover:border-purple-300'
+                href='/generate'
+                className='px-6 py-2.5 border border-cyan-500/40 rounded-full text-sm hover:bg-cyan-500/10 transition-colors font-light'
               >
-                <h3 className='text-xl font-semibold text-slate-900 mb-2'>
-                  {scenario.title}
-                </h3>
-                <p className='text-slate-600 mb-4 line-clamp-2'>
-                  {scenario.description}
-                </p>
-
-                {/* Metadata */}
-                <div className='flex flex-wrap gap-2'>
-                  <span className='text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium'>
-                    {scenario.category}
-                  </span>
-                  <span className='text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium'>
-                    {scenario.difficulty}
-                  </span>
-                  <span className='text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium'>
-                    ~{scenario.estimated_time} mins
-                  </span>
-                  <span className='text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded-full font-medium'>
-                    {scenario.decision_points.length} decisions
-                  </span>
-                </div>
+                Initialize First Node
               </Link>
-            ))}
-          </div>
-        )}
+            </div>
+          ) : (
+            /* Node Network Layout */
+            <div className='relative'>
+              {/* Connection lines (SVG) */}
+              <svg
+                className='absolute inset-0 w-full h-full pointer-events-none'
+                style={{ zIndex: 0 }}
+              >
+                <defs>
+                  <linearGradient
+                    id='line-gradient'
+                    x1='0%'
+                    y1='0%'
+                    x2='100%'
+                    y2='0%'
+                  >
+                    <stop offset='0%' stopColor='rgb(6 182 212 / 0.15)' />
+                    <stop offset='100%' stopColor='rgb(168 85 247 / 0.15)' />
+                  </linearGradient>
+                </defs>
+                {scenarios.map((_, index) => {
+                  if (index === scenarios.length - 1) return null;
+                  const fromIndex = index;
+                  const toIndex = index + 1;
+
+                  // Calculate positions
+                  const cols = Math.min(scenarios.length, 4);
+                  const fromRow = Math.floor(fromIndex / cols);
+                  const fromCol = fromIndex % cols;
+                  const toRow = Math.floor(toIndex / cols);
+                  const toCol = toIndex % cols;
+
+                  const fromX = (fromCol + 0.5) * (100 / cols);
+                  const fromY = fromRow * 280 + 140;
+                  const toX = (toCol + 0.5) * (100 / cols);
+                  const toY = toRow * 280 + 140;
+
+                  return (
+                    <line
+                      key={`line-${index}`}
+                      x1={`${fromX}%`}
+                      y1={fromY}
+                      x2={`${toX}%`}
+                      y2={toY}
+                      stroke='url(#line-gradient)'
+                      strokeWidth='0.5'
+                      opacity='0.4'
+                    />
+                  );
+                })}
+              </svg>
+
+              {/* Scenario Nodes Grid */}
+              <div
+                className='grid gap-10 md:gap-14 relative'
+                style={{
+                  gridTemplateColumns: `repeat(${Math.min(
+                    scenarios.length,
+                    4
+                  )}, 1fr)`,
+                }}
+              >
+                {scenarios.map((scenario, index) => (
+                  <ScenarioNode
+                    key={scenario.id}
+                    scenario={scenario}
+                    index={index}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
